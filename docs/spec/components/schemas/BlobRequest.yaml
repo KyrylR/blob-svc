@@ -1,13 +1,28 @@
 allOf:
-  - $ref: "#/components/schemas/BlobKey"
+  - $ref: '#/components/schemas/BlobKey'
   - $type: object
     required:
-      - owner
+      - attributes
+      - relationships
     properties:
-      owner:
-        description: blob owner
+      attributes:
         type: object
         properties:
-          data:
+          value:
+            description: arbitrary text
+            type: string
+            example: foobar
+        required:
+          - value
+      relationships:
+        type: object
+        required:
+          - owner
+        properties:
+          owner:
+            description: blob owner
             type: object
-            $ref: '#/components/schemas/OwnerKey'
+            properties:
+              data:
+                type: object
+                $ref: '#/components/schemas/OwnerKey'

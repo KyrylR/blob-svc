@@ -1,4 +1,4 @@
-description: "Related to user some data"
+description: 'Related to user some data'
 type: object
 required:
   - id
@@ -6,9 +6,9 @@ required:
 properties:
   id:
     type: string
-    description: "Identifier of a blob"
-    example: "blob-1"
+    description: Identifier of a blob
+    example: blob-1
   data:
     type: string
-    description: "Some data that linked to user"
-    example: "Some useful data"
+    description: Some data that linked to user
+    example: Some useful data
