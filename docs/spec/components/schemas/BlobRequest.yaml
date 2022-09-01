@@ -1,6 +1,6 @@
 allOf:
   - $ref: '#/components/schemas/BlobKey'
-  - $type: object
+  - type: object
     required:
       - attributes
       - relationships
