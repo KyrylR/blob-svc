@@ -1,0 +1,63 @@
+parameters:
+  - name: blob
+    in: path
+    description: Blob identifier
+    required: true
+    schema:
+      type: string
+
+get:
+  tags:
+    - Blob
+  summary: Get Blob
+  description: "Get blob by id"
+  operationId: getBlob
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/Blob'
+    '400':
+      description: invalid request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '404':
+      description: blob not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: failed to get blob
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+delete:
+  tags:
+    - Blob
+  summary: Remove Blob
+  description: "Delete blob by id"
+  operationId: deleteBlob
+  responses:
+    '204':
+      description: Blob deleted
+    '400':
+      description: invalid blob id
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: failed to get blob or failed to mark blob deleted
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
