@@ -1,0 +1,13 @@
+allOf:
+  - $ref: "#/components/schemas/BlobKey"
+  - $type: object
+    required:
+      - owner
+    properties:
+      owner:
+        description: blob owner
+        type: object
+        properties:
+          data:
+            type: object
+            $ref: '#/components/schemas/OwnerKey'
