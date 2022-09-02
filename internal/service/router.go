@@ -2,6 +2,7 @@ package service
 
 import (
 	"blob-svc/internal/service/handlers"
+	"blob-svc/internal/service/helpers"
 
 	"github.com/go-chi/chi"
 	"gitlab.com/distributed_lab/ape"
@@ -9,16 +10,24 @@ import (
 
 func (s *service) router() chi.Router {
 	r := chi.NewRouter()
+	log := s.log.WithFields(map[string]interface{}{
+		"service": "blob=svc-api",
+	})
 
 	r.Use(
-		ape.RecoverMiddleware(s.log),
-		ape.LoganMiddleware(s.log),
+		ape.RecoverMiddleware(log),
+		ape.LoganMiddleware(log),
 		ape.CtxMiddleware(
-			handlers.CtxLog(s.log),
+			helpers.CtxLog(log),
 		),
 	)
 	r.Route("/integrations/blob-svc", func(r chi.Router) {
-		// configure endpoints here
+		r.Post("/", handlers.CreateBlob)
+		r.Get("", handlers.GetBlobList)
+		r.Route("/{id}", func(r chi.Router) {
+			r.Get("/", handlers.GetBlob)
+			r.Delete("", handlers.DeleteBlob)
+		})
 	})
 
 	return r
