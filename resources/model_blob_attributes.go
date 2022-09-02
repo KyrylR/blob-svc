@@ -6,5 +6,5 @@ package resources
 
 type BlobAttributes struct {
 	// arbitrary text
-	Value string `json:"value"`
+	Information string `json:"information"`
 }

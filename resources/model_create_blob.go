@@ -6,7 +6,6 @@ package resources
 
 type CreateBlob struct {
 	Key
-	Attributes    CreateBlobAttributes    `json:"attributes"`
 	Relationships CreateBlobRelationships `json:"relationships"`
 }
 type CreateBlobResponse struct {

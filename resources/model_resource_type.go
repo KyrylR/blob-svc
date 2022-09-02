@@ -8,5 +8,6 @@ type ResourceType string
 
 // List of ResourceType
 const (
+	BLOB        ResourceType = "blob"
 	CREATE_BLOB ResourceType = "create-blob"
 )
