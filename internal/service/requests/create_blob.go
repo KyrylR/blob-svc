@@ -24,7 +24,7 @@ func NewCreateBlobRequest(r *http.Request) (CreateBlobRequest, error) {
 
 func (r *CreateBlobRequest) validate() error {
 	return mergeErrors(validation.Errors{
-		"/data/attributes/topic": validation.Validate(&r.Data.Attributes.Value, validation.Required,
+		"/data/attributes/topic": validation.Validate(&r.Data.Attributes.Information, validation.Required,
 			validation.Length(3, 100)),
 	}).Filter()
 }
