@@ -2,7 +2,7 @@
 
 create table blobs (
     id bigserial primary key,
-    data text not null
+    information text not null
 );
 
 -- +migrate Down
