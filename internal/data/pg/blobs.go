@@ -57,15 +57,21 @@ func (q *blobsQ) Transaction(fn func(q data.BlobsQ) error) error {
 	})
 }
 
-func (q *blobsQ) Insert(value data.Blob) (data.Blob, error) {
-	clauses := structs.Map(value)
-	clauses["information"] = value.Information
+func (q *blobsQ) Insert(blob data.Blob) (data.Blob, error) {
+	clauses := structs.Map(blob)
+	clauses["information"] = blob.Information
 
 	var result data.Blob
 	stmt := sq.Insert(blobsTableName).SetMap(clauses).Suffix("returning *")
 	err := q.db.Get(&result, stmt)
 
 	return result, err
+}
+
+func (q *blobsQ) Delete(blob data.Blob) error {
+	stmt := sq.Delete(blobsTableName).Where(sq.Eq{"id": blob.ID})
+	err := q.db.Exec(stmt)
+	return err
 }
 
 func (q *blobsQ) FilterByID(ids ...int64) data.BlobsQ {

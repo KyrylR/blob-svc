@@ -10,6 +10,7 @@ type BlobsQ interface {
 	Transaction(fn func(q BlobsQ) error) error
 
 	Insert(data Blob) (Blob, error)
+	Delete(data Blob) error
 
 	FilterByID(id ...int64) BlobsQ
 }
