@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"blob-svc/internal/data"
 	"blob-svc/internal/service/helpers"
 	"blob-svc/internal/service/requests"
 	"blob-svc/resources"
@@ -25,7 +26,20 @@ func GetBlobList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := resources.BlobListResponse{
-		Data: blobs,
+		Data: newBlobsList(blobs),
 	}
 	ape.Render(w, response)
+}
+
+func newBlobsList(blobs []data.Blob) []resources.Blob {
+	result := make([]resources.Blob, len(blobs))
+	for i, blob := range blobs {
+		result[i] = resources.Blob{
+			Key: resources.NewKeyInt64(blob.ID, resources.BLOB),
+			Attributes: resources.BlobAttributes{
+				Information: blob.Information,
+			},
+		}
+	}
+	return result
 }
