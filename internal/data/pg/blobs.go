@@ -68,8 +68,8 @@ func (q *blobsQ) Insert(blob data.Blob) (data.Blob, error) {
 	return result, err
 }
 
-func (q *blobsQ) Delete(blob data.Blob) error {
-	stmt := sq.Delete(blobsTableName).Where(sq.Eq{"id": blob.ID})
+func (q *blobsQ) Delete(id int64) error {
+	stmt := sq.Delete(blobsTableName).Where(sq.Eq{"id": id})
 	err := q.db.Exec(stmt)
 	return err
 }
