@@ -1,14 +1,13 @@
 package requests
 
 import (
-	"blob-svc/resources"
 	"encoding/json"
 	"gitlab.com/distributed_lab/logan/v3/errors"
 	"net/http"
 )
 
 type GetBlobRequest struct {
-	Data resources.CreateBlob
+	BlobID int64 `url:"-"`
 }
 
 func NewGetBlobRequest(r *http.Request) (GetBlobRequest, error) {
