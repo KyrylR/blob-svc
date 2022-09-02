@@ -15,12 +15,3 @@ allOf:
             properties:
               data:
                 $ref: '#/components/schemas/OwnerKey'
-      attributes:
-        type: object
-        required:
-          - value
-        properties:
-          value:
-            description: arbitrary text
-            type: string
-            example: foobar
