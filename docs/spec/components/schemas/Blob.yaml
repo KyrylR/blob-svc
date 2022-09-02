@@ -7,9 +7,9 @@ allOf:
       attributes:
         type: object
         required:
-          - value
+          - information
         properties:
-          value:
+          information:
             description: arbitrary text
             type: string
             example: foobar

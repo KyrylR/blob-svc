@@ -1,14 +1,11 @@
-description: 'Related to user some data'
 type: object
 required:
   - id
-  - data
+  - type
 properties:
   id:
     type: string
-    description: Identifier of a blob
-    example: blob-1
-  data:
+  type:
     type: string
-    description: Some data that linked to user
-    example: Some useful data
+    enum:
+      - blob
