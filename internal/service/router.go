@@ -1,6 +1,7 @@
 package service
 
 import (
+	"blob-svc/internal/data/pg"
 	"blob-svc/internal/service/handlers"
 	"blob-svc/internal/service/helpers"
 
@@ -19,14 +20,15 @@ func (s *service) router() chi.Router {
 		ape.LoganMiddleware(log),
 		ape.CtxMiddleware(
 			helpers.CtxLog(log),
+			helpers.CtxBlobsQ(pg.NewBlobsQ(s.db)),
 		),
 	)
 	r.Route("/integrations/blob-svc", func(r chi.Router) {
 		r.Post("/", handlers.CreateBlob)
-		r.Get("", handlers.GetBlobList)
+		r.Get("/", handlers.GetBlobList)
 		r.Route("/{id}", func(r chi.Router) {
 			r.Get("/", handlers.GetBlob)
-			r.Delete("", handlers.DeleteBlob)
+			r.Delete("/", handlers.DeleteBlob)
 		})
 	})
 
