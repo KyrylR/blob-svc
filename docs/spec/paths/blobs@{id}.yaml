@@ -8,7 +8,7 @@ parameters:
 
 get:
   tags:
-    - Blobs
+    - Blob
   summary: Get Blob
   description: "Get blob by id"
   operationId: getBlob
