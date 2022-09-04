@@ -75,6 +75,6 @@ func (q *blobsQ) Delete(id int64) error {
 }
 
 func (q *blobsQ) FilterByID(ids ...int64) data.BlobsQ {
-	q.sql = q.sql.Where(sq.Eq{"n.id": ids})
+	q.sql = q.sql.Where(sq.Eq{"id": ids})
 	return q
 }
