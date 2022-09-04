@@ -1,8 +1,9 @@
 log:
   disable_sentry: true
+  level: "info"
 
 db:
-  url: db_url
+  url: "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
 
 listener:
   addr: :9100
