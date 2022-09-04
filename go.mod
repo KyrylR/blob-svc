@@ -11,7 +11,9 @@ require (
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-ozzo/ozzo-validation/v4 v4.2.1
 	github.com/rubenv/sql-migrate v1.1.2
+	github.com/spf13/cast v1.3.1
 	gitlab.com/distributed_lab/ape v1.7.1
 	gitlab.com/distributed_lab/kit v1.11.1
 	gitlab.com/distributed_lab/logan v3.8.1+incompatible
+	gitlab.com/distributed_lab/urlval v3.0.0+incompatible
 )
