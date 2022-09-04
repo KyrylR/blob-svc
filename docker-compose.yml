@@ -5,10 +5,13 @@ services:
     build: .
     ports:
       - "9100:9100"
-    env_file:
-      - vars.env
+    depends_on:
+      - db
+    environment:
+      - KV_VIPER_FILE=/config.yaml
     volumes:
-      -
+      - ./config.yaml:/config.yaml
+    command: run service
 
 
   db:
