@@ -10,6 +10,6 @@ allOf:
           - information
         properties:
           information:
-            description: arbitrary text
             type: string
-            example: foobar
+            description: 'Information related to the blob'
+            example: 'Some text'

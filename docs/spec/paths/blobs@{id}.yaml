@@ -1,7 +1,7 @@
 parameters:
   - name: id
     in: path
-    description: Blob identifier
+    description: 'Blob identifier'
     required: true
     schema:
       type: string
@@ -10,7 +10,7 @@ get:
   tags:
     - Blob
   summary: Get Blob
-  description: "Get blob by id"
+  description: 'Get blob by id'
   operationId: getBlob
   responses:
     '200':
@@ -46,7 +46,7 @@ delete:
   tags:
     - Blob
   summary: Delete Blob
-  description: "Delete blob by id"
+  description: 'Delete blob by id'
   operationId: deleteBlob
   responses:
     '204':

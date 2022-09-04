@@ -1,8 +1,11 @@
+description: 'Blob request structure'
 type: object
 required:
   - type
 properties:
   type:
     type: string
+    description: 'Blob request type'
+    example: 'create-blob'
     enum:
       - create-blob

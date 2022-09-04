@@ -1,9 +1,11 @@
+description: 'Owner structure'
 type: object
 required:
   - id
 properties:
   id:
     type: string
-    example: GBSR6JG5AYSAW7HK6EGJFYVIVN54LVGSY3ZLJ6X3IBQZ766EJABCZQTH
+    description: 'Owner identifier'
+    example: 'GBSR6JG5AYSAW7HK6EGJFYVIVN54LVGSY3ZLJ6X3IBQZ766EJABCZQTH'
     enum:
       - owner

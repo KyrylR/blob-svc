@@ -1,3 +1,4 @@
+description: 'Blob structure'
 type: object
 required:
   - id
@@ -5,7 +6,11 @@ required:
 properties:
   id:
     type: string
+    description: 'Blob identifier'
+    example: '12'
   type:
     type: string
+    description: 'Blob type'
+    example: 'blob'
     enum:
       - blob

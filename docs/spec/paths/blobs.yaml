@@ -43,7 +43,7 @@ get:
   tags:
     - Blobs
   summary: Get blobs list
-  description: "Get blobs' list\n"
+  description: "Get blobs list\n"
   operationId: getBlobsList
   responses:
     '200':
@@ -58,13 +58,13 @@ get:
                 items:
                   $ref: '#/components/schemas/Blob'
     '401':
-      description: getting blobs list not allowed
+      description: Getting blobs list not allowed
       content:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/Errors'
     '500':
-      description: failed to get blobs list
+      description: Failed to get blobs list
       content:
         application/vnd.api+json:
           schema:

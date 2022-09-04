@@ -10,6 +10,8 @@ allOf:
         properties:
           owner:
             type: object
+            description: 'Owner identifier'
+            example: 'GBSR6JG5AYSAW7HK6EGJFYVIVN54LVGSY3ZLJ6X3IBQZ766EJABCZQTH'
             required:
               - data
             properties:
@@ -21,6 +23,6 @@ allOf:
           - information
         properties:
           information:
-            description: arbitrary text
             type: string
-            example: foobar
+            description: 'Information related to the blob'
+            example: 'Some text'
