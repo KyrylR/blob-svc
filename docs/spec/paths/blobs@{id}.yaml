@@ -51,7 +51,7 @@ delete:
   responses:
     '204':
       description: Blob deleted
-    '400':
+    '404':
       description: Invalid blob id
       content:
         application/vnd.api+json:
