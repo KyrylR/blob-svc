@@ -1,12 +1,10 @@
 package handlers
 
 import (
-	"blob-svc/internal/data"
 	"blob-svc/internal/service/helpers"
 	"blob-svc/internal/service/requests"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
-	"gitlab.com/distributed_lab/logan/v3/errors"
 	"net/http"
 )
 
@@ -18,14 +16,13 @@ func DeleteBlob(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = helpers.BlobsQ(r).Transaction(func(q data.BlobsQ) error {
-		err = q.Delete(request.BlobID)
-		if err != nil {
-			return errors.Wrap(err, "failed to delete blob")
-		}
+	blob, err := helpers.BlobsQ(r).FilterByID(request.BlobID).Get()
+	if blob == nil {
+		ape.Render(w, problems.NotFound())
+		return
+	}
 
-		return nil
-	})
+	err = helpers.BlobsQ(r).Delete(request.BlobID)
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to delete blob")
 		ape.RenderErr(w, problems.InternalError())
