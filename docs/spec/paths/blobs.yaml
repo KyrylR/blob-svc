@@ -43,7 +43,6 @@ get:
   tags:
     - Blobs
   summary: Get blobs list
-  description: "Get blobs list\n"
   operationId: getBlobsList
   responses:
     '200':

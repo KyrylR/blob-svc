@@ -1,4 +1,3 @@
-description: 'Blob structure'
 type: object
 required:
   - id
