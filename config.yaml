@@ -1,6 +1,6 @@
 log:
   disable_sentry: true
-  level: "info"
+  level: "warn"
 
 db:
   url: "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
