@@ -5,6 +5,6 @@
 package resources
 
 type CreateBlobAttributes struct {
-	// arbitrary text
+	// Information related to the blob
 	Information string `json:"information"`
 }
