@@ -21,7 +21,8 @@ func CreateBlob(w http.ResponseWriter, r *http.Request) {
 	var resultBlob data.Blob
 
 	blob := data.Blob{
-		Information: request.Data.Attributes.Information,
+		Information:  request.Data.Attributes.Information,
+		OwnerAddress: request.Data.Relationships.Owner.Data.ID,
 	}
 
 	resultBlob, err = helpers.BlobsQ(r).Insert(blob)
@@ -36,6 +37,13 @@ func CreateBlob(w http.ResponseWriter, r *http.Request) {
 			Key: resources.NewKeyInt64(resultBlob.ID, resources.BLOB),
 			Attributes: resources.BlobAttributes{
 				Information: resultBlob.Information,
+			},
+			Relationships: resources.BlobRelationships{
+				Owner: resources.Relation{
+					Data: &resources.Key{
+						ID: resultBlob.OwnerAddress,
+					},
+				},
 			},
 		},
 	}

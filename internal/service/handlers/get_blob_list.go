@@ -31,6 +31,13 @@ func newBlobsList(blobs []data.Blob) []resources.Blob {
 			Attributes: resources.BlobAttributes{
 				Information: blob.Information,
 			},
+			Relationships: resources.BlobRelationships{
+				Owner: resources.Relation{
+					Data: &resources.Key{
+						ID: blob.OwnerAddress,
+					},
+				},
+			},
 		}
 	}
 	return result

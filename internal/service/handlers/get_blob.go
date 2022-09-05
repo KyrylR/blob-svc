@@ -34,6 +34,13 @@ func GetBlob(w http.ResponseWriter, r *http.Request) {
 			Attributes: resources.BlobAttributes{
 				Information: blob.Information,
 			},
+			Relationships: resources.BlobRelationships{
+				Owner: resources.Relation{
+					Data: &resources.Key{
+						ID: blob.OwnerAddress,
+					},
+				},
+			},
 		},
 	}
 
