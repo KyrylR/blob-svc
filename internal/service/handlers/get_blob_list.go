@@ -3,6 +3,7 @@ package handlers
 import (
 	"blob-svc/internal/data"
 	"blob-svc/internal/service/helpers"
+	"blob-svc/internal/service/requests"
 	"blob-svc/resources"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
@@ -10,7 +11,15 @@ import (
 )
 
 func GetBlobList(w http.ResponseWriter, r *http.Request) {
-	blobs, err := helpers.BlobsQ(r).Select()
+	request, err := requests.NewGetBlobListRequest(r)
+	if err != nil {
+		ape.RenderErr(w, problems.BadRequest(err)...)
+		return
+	}
+
+	blobsQ := helpers.BlobsQ(r)
+	applyFilters(blobsQ, request)
+	blobs, err := blobsQ.Select()
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to get blobs")
 		ape.Render(w, problems.InternalError())
@@ -18,9 +27,18 @@ func GetBlobList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := resources.BlobListResponse{
-		Data: newBlobsList(blobs),
+		Data:  newBlobsList(blobs),
+		Links: helpers.GetOffsetLinks(r, request.OffsetPageParams),
 	}
 	ape.Render(w, response)
+}
+
+func applyFilters(q data.BlobsQ, request requests.GetBlobListRequest) {
+	q.Page(request.OffsetPageParams)
+
+	if len(request.FilterOwner) > 0 {
+		q.FilterByOwnerAddress(request.FilterOwner...)
+	}
 }
 
 func newBlobsList(blobs []data.Blob) []resources.Blob {

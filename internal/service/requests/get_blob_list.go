@@ -1,19 +1,22 @@
 package requests
 
 import (
-	"encoding/json"
-	"gitlab.com/distributed_lab/logan/v3/errors"
+	"gitlab.com/distributed_lab/kit/pgdb"
+	"gitlab.com/distributed_lab/urlval"
 	"net/http"
 )
 
 type GetBlobListRequest struct {
+	pgdb.OffsetPageParams
+	FilterOwner []string `filter:"token"`
 }
 
 func NewGetBlobListRequest(r *http.Request) (GetBlobListRequest, error) {
 	var request GetBlobListRequest
 
-	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-		return request, errors.Wrap(err, "failed to unmarshal")
+	err := urlval.Decode(r.URL.Query(), &request)
+	if err != nil {
+		return request, err
 	}
 
 	return request, nil
