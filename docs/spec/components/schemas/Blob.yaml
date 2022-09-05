@@ -10,6 +10,7 @@ allOf:
           - information
         properties:
           information:
-            type: string
+            type: object
+            format: json.RawMessage
             description: 'Information related to the blob'
             example: 'Some text'
