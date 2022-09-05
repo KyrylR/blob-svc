@@ -7,5 +7,3 @@ properties:
     type: string
     description: 'Owner identifier'
     example: 'GBSR6JG5AYSAW7HK6EGJFYVIVN54LVGSY3ZLJ6X3IBQZ766EJABCZQTH'
-    enum:
-      - owner
