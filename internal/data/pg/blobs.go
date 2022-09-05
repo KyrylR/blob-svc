@@ -60,6 +60,7 @@ func (q *blobsQ) Transaction(fn func(q data.BlobsQ) error) error {
 func (q *blobsQ) Insert(blob data.Blob) (data.Blob, error) {
 	clauses := structs.Map(blob)
 	clauses["information"] = blob.Information
+	clauses["owner_address"] = blob.OwnerAddress
 
 	var result data.Blob
 	stmt := sq.Insert(blobsTableName).SetMap(clauses).Suffix("returning *")

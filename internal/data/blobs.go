@@ -18,6 +18,7 @@ type BlobsQ interface {
 }
 
 type Blob struct {
-	ID          int64           `db:"id" structs:"-"`
-	Information json.RawMessage `db:"information" structs:"information"`
+	ID           int64           `db:"id" structs:"-"`
+	Information  json.RawMessage `db:"information" structs:"information"`
+	OwnerAddress string          `db:"owner_address" structs:"owner_address"`
 }
