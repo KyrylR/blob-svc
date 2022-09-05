@@ -7,7 +7,6 @@ import (
 	"blob-svc/resources"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
-	"gitlab.com/distributed_lab/logan/v3/errors"
 	"net/http"
 )
 
@@ -21,18 +20,11 @@ func CreateBlob(w http.ResponseWriter, r *http.Request) {
 
 	var resultBlob data.Blob
 
-	err = helpers.BlobsQ(r).Transaction(func(q data.BlobsQ) error {
-		blob := data.Blob{
-			Information: request.Data.Attributes.Information,
-		}
+	blob := data.Blob{
+		Information: request.Data.Attributes.Information,
+	}
 
-		resultBlob, err = q.Insert(blob)
-		if err != nil {
-			return errors.Wrap(err, "failed to insert blob")
-		}
-
-		return nil
-	})
+	resultBlob, err = helpers.BlobsQ(r).Insert(blob)
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to create blob")
 		ape.RenderErr(w, problems.InternalError())
