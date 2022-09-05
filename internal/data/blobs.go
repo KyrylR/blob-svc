@@ -1,6 +1,9 @@
 package data
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"gitlab.com/distributed_lab/kit/pgdb"
+)
 
 type BlobsQ interface {
 	New() BlobsQ
@@ -14,7 +17,10 @@ type BlobsQ interface {
 	Insert(data Blob) (Blob, error)
 	Delete(id int64) error
 
-	FilterByID(id ...int64) BlobsQ
+	Page(pageParams pgdb.OffsetPageParams) BlobsQ
+
+	FilterByID(ids ...int64) BlobsQ
+	FilterByOwnerAddress(ownerAddresses ...string) BlobsQ
 }
 
 type Blob struct {
