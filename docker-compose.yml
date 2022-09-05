@@ -2,6 +2,9 @@ version: '3.3'
 
 services:
   blob:
+#    Uncomment the following lines to build the image from the docker hub
+#    image: kyrylrs/blob-svc-task
+#    restart: unless-stopped
     build: .
     ports:
       - "9100:9100"
