@@ -75,7 +75,17 @@ func (q *blobsQ) Delete(id int64) error {
 	return err
 }
 
+func (q *blobsQ) Page(pageParams pgdb.OffsetPageParams) data.BlobsQ {
+	q.sql = pageParams.ApplyTo(q.sql, "id")
+	return q
+}
+
 func (q *blobsQ) FilterByID(ids ...int64) data.BlobsQ {
 	q.sql = q.sql.Where(sq.Eq{"id": ids})
+	return q
+}
+
+func (q *blobsQ) FilterByOwnerAddress(ownerAddress ...string) data.BlobsQ {
+	q.sql = q.sql.Where(sq.Eq{"owner_address": ownerAddress})
 	return q
 }
