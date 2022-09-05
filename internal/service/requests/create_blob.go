@@ -9,7 +9,7 @@ import (
 )
 
 type CreateBlobRequest struct {
-	Data resources.CreateBlob
+	Data resources.Blob
 }
 
 func NewCreateBlobRequest(r *http.Request) (CreateBlobRequest, error) {
