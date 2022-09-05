@@ -13,3 +13,4 @@ properties:
     example: 'blob'
     enum:
       - blob
+      - create-blob
