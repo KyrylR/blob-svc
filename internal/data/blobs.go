@@ -1,5 +1,7 @@
 package data
 
+import "encoding/json"
+
 type BlobsQ interface {
 	New() BlobsQ
 
@@ -16,6 +18,6 @@ type BlobsQ interface {
 }
 
 type Blob struct {
-	ID          int64  `db:"id" structs:"-"`
-	Information string `db:"information" structs:"information"`
+	ID          int64           `db:"id" structs:"-"`
+	Information json.RawMessage `db:"information" structs:"information"`
 }
