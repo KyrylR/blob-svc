@@ -8,5 +8,7 @@ type ResourceType string
 
 // List of ResourceType
 const (
-	BLOB ResourceType = "blob"
+	IDENTITY_ACCOUNT ResourceType = "identity-account"
+	BLOB             ResourceType = "blob"
+	SIGNER           ResourceType = "signer"
 )
