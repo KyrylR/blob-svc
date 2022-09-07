@@ -1,0 +1,19 @@
+allOf:
+  - $ref: '#/components/schemas/SignerKey'
+  - type: object
+    required:
+      - attributes
+    properties:
+      attributes:
+        type: object
+        required: [role_id, weight, identity]
+        properties:
+          role_id:
+            type: integer
+            example: 1
+          weight:
+            type: integer
+            example: 1000
+          identity:
+            type: integer
+            example: 1
