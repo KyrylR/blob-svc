@@ -10,10 +10,15 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-ozzo/ozzo-validation/v4 v4.2.1
+	github.com/nullstyle/go-xdr v0.0.0-20180726165426-f4c839f75077 // indirect
+	github.com/pkg/errors v0.9.1
 	github.com/rubenv/sql-migrate v1.1.2
 	github.com/spf13/cast v1.3.1
 	gitlab.com/distributed_lab/ape v1.7.1
 	gitlab.com/distributed_lab/kit v1.11.1
 	gitlab.com/distributed_lab/logan v3.8.1+incompatible
 	gitlab.com/distributed_lab/urlval v3.0.0+incompatible
+	gitlab.com/tokend/go v3.15.2+incompatible
+	gitlab.com/tokend/keypair v0.0.0-20190412110653-b9d7e0c8b312
+	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
 )
