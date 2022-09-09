@@ -30,6 +30,7 @@ func (s *service) router() chi.Router {
 			r.Get("/", handlers.GetBlob)
 			r.Delete("/", handlers.DeleteBlob)
 		})
+		r.Post("/account", handlers.CreateAccount)
 	})
 
 	return r
