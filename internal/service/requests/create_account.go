@@ -30,10 +30,22 @@ func NewCreateAccountRequest(r *http.Request) (CreateAccountRequest, error) {
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		return request, errors.Wrap(err, "failed to unmarshal")
 	}
+
+	signerBytesData, err := request.Included.MarshalJSON()
+	if err != nil {
+		return request, errors.Wrap(err, "failed to marshal includes")
+	}
+
+	var signerData IncludedSignerData
+	if err := json.Unmarshal(signerBytesData, &signerData); err != nil { // Parse []byte to go struct pointer
+		return request, errors.Wrap(err, "failed to unmarshal")
+	}
+
+	request.SignerData = signerData
 	return request, ValidateCreateAccountRequest(request)
 }
 
-func ValidateCreateAccountRequest(r resources.CreateAccountResponse) error {
+func ValidateCreateAccountRequest(r CreateAccountRequest) error {
 	errs := validation.Errors{
 		"/data/":                      validation.Validate(r.Data, validation.Required),
 		"/data/relationships/signers": validation.Validate(r.Data.Relationships.Signers),
