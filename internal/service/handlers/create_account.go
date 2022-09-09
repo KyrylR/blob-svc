@@ -31,7 +31,6 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var horizonInfo data.HorizonInfo
-	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err := json.Unmarshal(body, &horizonInfo); err != nil { // Parse []byte to go struct pointer
 		fmt.Println("Can not unmarshal JSON")
@@ -78,7 +77,7 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 
 	jsonValue, _ := json.Marshal(values)
 
-	resp, err = http.Post(
+	response, err := http.Post(
 		"http://localhost:8000/_/api/v3/transactions",
 		"application/json",
 		bytes.NewBuffer(jsonValue))
@@ -88,5 +87,5 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ape.Render(w, resp)
+	w.WriteHeader(response.StatusCode)
 }
