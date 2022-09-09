@@ -10,7 +10,7 @@ import (
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 	"gitlab.com/tokend/go/keypair"
-	"gitlab.com/tokend/go/network"
+	"gitlab.com/tokend/go/strkey"
 	"gitlab.com/tokend/go/xdrbuild"
 	"io/ioutil"
 	"net/http"
@@ -39,8 +39,11 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 
 	txBuilder := xdrbuild.NewBuilder(horizonInfo.NetworkPassphrase, int64(horizonInfo.TxExpirationPeriod))
 
-	//sourceKP, err := keypair.FromRawSeed(network.ID(request.Data.ID))
-	sourceKP, err := keypair.Random()
+	seed, err := strkey.Decode(strkey.VersionByteSeed, "SAMJKTZVW5UOHCDK5INYJNORF2HRKYI72M5XSZCBYAHQHR34FFR4Z6G4")
+	var rawSeed [32]byte
+	copy(rawSeed[:], seed)
+	sourceKP, err := keypair.FromRawSeed(rawSeed)
+	destKP, err := keypair.Random()
 	if err != nil {
 		ape.RenderErr(w, problems.BadRequest(err)...)
 		return
@@ -48,28 +51,23 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 
 	tx := txBuilder.Transaction(sourceKP)
 	var signersData []xdrbuild.SignerData
+	details := json.RawMessage("{}")
 	signersData = append(signersData, xdrbuild.SignerData{
-		PublicKey: sourceKP.Address(),
+		PublicKey: destKP.Address(),
 		RoleID:    uint64(request.SignerData[0].Attributes.RoleID),
 		Weight:    uint32(request.SignerData[0].Attributes.Weight),
 		Identity:  uint32(request.SignerData[0].Attributes.Identity),
-		Details:   json.RawMessage{},
+		Details:   details,
 	})
 	var createAccount = xdrbuild.CreateAccount{
-		Destination: sourceKP.Address(),
+		Destination: destKP.Address(),
 		Referrer:    nil,
 		RoleID:      1,
 		Signers:     signersData,
 	}
 	tx.Op(&createAccount)
 
-	signerKP, err := keypair.FromRawSeed(network.ID(horizonInfo.NetworkPassphrase))
-	if err != nil {
-		ape.RenderErr(w, problems.BadRequest(err)...)
-		return
-	}
-
-	envelope, err := tx.Sign(signerKP).Marshal()
+	envelope, err := tx.Sign(sourceKP).Marshal()
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to marshal transaction")
 		ape.RenderErr(w, problems.InternalError())
