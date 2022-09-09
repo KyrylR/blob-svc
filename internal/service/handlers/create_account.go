@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"blob-svc/internal/service/requests"
+	"fmt"
+	"log"
 	"net/http"
 
 	"gitlab.com/distributed_lab/ape"
@@ -15,47 +17,9 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//account, err := helpers.AccountQ(r).Account(request.Data.ID)
-	//if err != nil {
-	//	helpers.Log(r).WithError(err).Error("failed to get account")
-	//	ape.RenderErr(w, problems.InternalError())
-	//	return
-	//}
-	//
-	//if account != nil {
-	//	ape.RenderErr(w, problems.Conflict())
-	//	return
-	//}
-	//
-	//signers, err := getSigners(request)
-	//if err != nil {
-	//	ape.RenderErr(w, problems.BadRequest(err)...)
-	//	return
-	//}
-	//
-	//err = helpers.AccountCreator(r).CreateAccount(r.Context(), request.Data.ID, signers)
-	//if err != nil {
-	//	helpers.Log(r).WithError(err).Error("failed to create account")
-	//	ape.RenderErr(w, problems.InternalError())
-	//	return
-	//}
-	//
-	//w.WriteHeader(http.StatusCreated)
+	resp, err := http.Get("http://127.0.0.1:80")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println(resp)
 }
-
-//func getSigners(request resources.CreateAccountResponse) ([]data.AccountSigner, error) {
-//	var signers []data.AccountSigner
-//	for _, signerKey := range request.Data.Relationships.Signers.Data {
-//		signer := request.Included.MustSigner(signerKey)
-//		if signer == nil {
-//			return nil, validation.Errors{"/included": errors.New("missed signer include")}
-//		}
-//		signers = append(signers, data.AccountSigner{
-//			SignerID: signerKey.ID,
-//			RoleID:   uint64(signer.Attributes.RoleId),
-//			Weight:   uint32(signer.Attributes.Weight),
-//			Identity: uint32(signer.Attributes.Identity),
-//		})
-//	}
-//	return signers, nil
-//}
