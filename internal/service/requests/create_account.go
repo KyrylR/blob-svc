@@ -9,8 +9,24 @@ import (
 	"gitlab.com/distributed_lab/logan/v3/errors"
 )
 
-func NewCreateAccountRequest(r *http.Request) (resources.CreateAccountResponse, error) {
-	var request resources.CreateAccountResponse
+type CreateAccountRequest struct {
+	Data       resources.CreateAccount
+	Included   resources.Included
+	SignerData IncludedSignerData
+}
+
+type IncludedSignerData []struct {
+	ID         string `json:"id"`
+	Type       string `json:"type"`
+	Attributes struct {
+		RoleID   int `json:"role_id"`
+		Weight   int `json:"weight"`
+		Identity int `json:"identity"`
+	} `json:"attributes"`
+}
+
+func NewCreateAccountRequest(r *http.Request) (CreateAccountRequest, error) {
+	var request CreateAccountRequest
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		return request, errors.Wrap(err, "failed to unmarshal")
 	}
